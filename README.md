@@ -26,3 +26,26 @@ OpenFlow es el protocolo de comunicación entre los switches y el controlador.
 - Es lo que permite al controlador hablar con los switches.
 - Permite decir: "Si ves un paquete con destino a IP X, mandalo por el puerto Y".
 - Los switches avisan al controlador: "Recibí un paquete y no sé qué hacer con él, ¿me das instrucciones?"
+
+## Ejecución
+
+### Ejecución Local
+
+Para ejecutar el proyecto, se proporciona un script que automatiza el proceso de inicialización. Este script realiza las siguientes acciones:
+
+1. Inicia el controlador POX con el componente learning_switch en una terminal independiente
+2. Espera 5 segundos para permitir la inicialización completa del controlador
+3. Inicia la topología lineal en una segunda terminal
+
+Para ejecutar el proyecto, simplemente ejecute el siguiente comando desde el directorio raíz del proyecto:
+
+```bash
+./src/scripts/run_all.sh
+```
+
+Nota: Es necesario tener permisos de ejecución en el script. Si no los tiene, puede otorgarlos con:
+
+```bash
+chmod +x src/scripts/run_all.sh
+```
+
