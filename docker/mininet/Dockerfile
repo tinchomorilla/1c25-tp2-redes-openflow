@@ -5,6 +5,9 @@ RUN apt-get update && apt-get install -y \
     git \
     build-essential \
     iputils-ping \
+    python \
+    python3 \
+    iperf \
     && rm -rf /var/lib/apt/lists/*
 
 # Clone and install Mininet with all dependencies
