@@ -1,18 +1,25 @@
-FROM sdn-project-base:latest
+# Dockerfile
 
-# Install POX with retry logic
-RUN for i in {1..3}; do \
-    git clone https://github.com/noxrepo/pox.git && \
-    cd pox && \
-    git checkout eel && \
-    break || sleep 5; \
-    done
+FROM python:3.9-slim
 
-# Copy the entire project
-COPY . /app
-
-# Set the working directory
 WORKDIR /app
 
-# Set the command to run POX directly
-CMD ["python3", "src/pox/pox.py", "log.level", "--DEBUG", "controller.learning_switch"] 
+# Dependencias base
+RUN apt-get update && apt-get install -y \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Cloná POX
+RUN git clone https://github.com/noxrepo/pox.git /app/src/pox
+
+# Copiá tu firewall al lugar correcto dentro de POX
+COPY src/controller/firewall.py /app/src/pox/pox/firewall.py
+
+# También copiá el rules.json a una ruta accesible dentro del container
+COPY src/controller/rules.json /app/src/pox/pox/rules.json
+
+# Seteamos PYTHONPATH (opcional acá, pero no molesta)
+ENV PYTHONPATH=/app/src
+
+# Ejecutar POX con tu controlador
+CMD ["python3", "src/pox/pox.py", "log.level", "--DEBUG", "firewall", "--rules_path=/app/src/pox/pox/rules.json"]
