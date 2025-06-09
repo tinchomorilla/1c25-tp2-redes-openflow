@@ -8,6 +8,10 @@ RUN apt-get update && apt-get install -y \
     python \
     python3 \
     iperf \
+    x11-apps \
+    x11-utils \
+    x11-xserver-utils \
+    xterm \
     && rm -rf /var/lib/apt/lists/*
 
 # Clone and install Mininet with all dependencies
@@ -27,6 +31,10 @@ WORKDIR /app
 
 # Add the project root to Python path
 ENV PYTHONPATH=/app/src
+
+# Configure X11
+ENV DISPLAY=:0
+ENV XAUTHORITY=/root/.Xauthority
 
 # Set entrypoint
 ENTRYPOINT ["/entrypoint.sh"]
