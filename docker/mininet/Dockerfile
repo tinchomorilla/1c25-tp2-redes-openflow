@@ -40,4 +40,4 @@ ENV XAUTHORITY=/root/.Xauthority
 ENTRYPOINT ["/entrypoint.sh"]
 
 # Set the command to run the linear topology with Python 2
-CMD ["python2", "-m", "src.topologies.linear_topology", "3"]
+CMD ["python2", "-m", "src.topologies.main", "3", "--rule", "R3"]
