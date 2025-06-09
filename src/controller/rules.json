@@ -1,0 +1,19 @@
+[
+    {
+      "rule": "block_http",
+      "protocol": "TCP",
+      "dst_port": 80
+    },
+    {
+      "rule": "block_udp_from_h1_to_5001",
+      "src_ip": "10.0.0.1",
+      "protocol": "UDP",
+      "dst_port": 5001
+    },
+    {
+      "rule": "block_h2_to_h3",
+      "src_ip": "10.0.0.2",
+      "dst_ip": "10.0.0.3"
+    }
+  ]
+  
