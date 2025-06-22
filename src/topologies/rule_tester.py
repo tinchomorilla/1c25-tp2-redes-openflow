@@ -19,6 +19,9 @@ class RuleTester:
         makeTerm(
             self.net.get("h2"), cmd="bash -c 'python -m SimpleHTTPServer 80; exec bash'"
         )
+
+        time.sleep(5)
+        
         # Try to access from h1
         makeTerm(self.net.get("h1"), cmd="bash -c 'curl 10.0.0.2:80; exec bash'")
 
