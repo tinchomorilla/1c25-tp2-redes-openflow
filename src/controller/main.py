@@ -19,8 +19,12 @@ def launch(rules_path="pox/rules.json"):
         """Handle new switch connections."""
         try:
             with open(rules_path, "r") as f:
-                rules = json.load(f)
-            Controller(event.connection, rules)
+                config = json.load(f)
+            firewall_switch = config.get("firewall_switch")
+            rules = (
+                config["rules"] if "rules" in config else config
+            )  
+            Controller(event.connection, rules, firewall_switch)
         except Exception as e:
             log.error("Error starting controller: %s", str(e))
             raise
