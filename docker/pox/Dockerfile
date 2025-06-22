@@ -20,7 +20,6 @@ COPY src/controller/firewall.py /app/src/pox/pox/firewall.py
 # También copiá el rules.json a una ruta accesible dentro del container
 COPY src/controller/rules.json /app/src/pox/pox/rules.json
 
-# Seteamos PYTHONPATH (opcional acá, pero no molesta)
 ENV PYTHONPATH=/app/src/pox
 
 # Ejecutar POX con tu controlador
