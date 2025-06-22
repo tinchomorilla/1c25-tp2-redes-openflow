@@ -11,11 +11,11 @@ log = core.getLogger()
 
 
 class Controller:
-    def __init__(self, connection, rules):
+    def __init__(self, connection, rules, firewall_switch=None):
         self.connection = connection
         self.mac_to_port = {}
         # Initialize firewall to install rules in switches
-        self.firewall = Firewall(rules)
+        self.firewall = Firewall(rules, firewall_switch)
         connection.addListeners(self)
         log.info("Switch connected: %s", connection)
 
