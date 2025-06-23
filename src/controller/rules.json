@@ -1,20 +1,30 @@
-[
-  {
-    "rule": "block_http",
-    "dst_port": 80,
-    "description": "Se deben descartar todos los mensajes cuyo puerto destino sea 80"
-  },
-  {
-    "rule": "block_udp_from_h1_to_5001",
-    "src_ip": "10.0.0.1",
-    "dst_port": 5001,
-    "protocol": "UDP",
-    "description": "Se deben descartar todos los mensajes que provengan del host 1, tengan como puerto destino el 5001, y estén utilizando el protocolo UDP"
-  },
-  {
-    "rule": "block_h2_to_h3",
-    "src_ip": "10.0.0.2",
-    "dst_ip": "10.0.0.3",
-    "description": "Se deben elegir dos hosts cualesquiera y los mismos no deben poder comunicarse de ninguna forma"
-  }
-]
+{
+  "firewall_switch": "s2",
+  "rules": [
+    {
+      "rule": "block_http_tcp",
+      "dst_port": 80,
+      "protocol": "TCP",
+      "description": "Bloquea todo el tráfico TCP cuyo puerto destino sea 80"
+    },
+    {
+      "rule": "block_http_udp",
+      "dst_port": 80,
+      "protocol": "UDP",
+      "description": "Bloquea todo el tráfico UDP cuyo puerto destino sea 80"
+    },
+    {
+      "rule": "block_udp_from_h1_to_5001",
+      "src_ip": "10.0.0.1",
+      "dst_port": 5001,
+      "protocol": "UDP",
+      "description": "Se deben descartar todos los mensajes que provengan del host 1, tengan como puerto destino el 5001, y estén utilizando el protocolo UDP"
+    },
+    {
+      "rule": "block_h2_to_h3",
+      "src_ip": "10.0.0.2",
+      "dst_ip": "10.0.0.3",
+      "description": "Se deben elegir dos hosts cualesquiera y los mismos no deben poder comunicarse de ninguna forma"
+    }
+  ]
+}

@@ -27,27 +27,58 @@ OpenFlow es el protocolo de comunicación entre los switches y el controlador.
 - Permite decir: "Si ves un paquete con destino a IP X, mandalo por el puerto Y".
 - Los switches avisan al controlador: "Recibí un paquete y no sé qué hacer con él, ¿me das instrucciones?"
 
+## Configuración del Entorno
+
+### Prerrequisitos
+
+Este proyecto requiere las siguientes dependencias del sistema:
+
+1. **Python 3** (3.8 o superior) - para Mininet y entorno virtual
+2. **Python 2.7** (recomendado) - para POX controller (evita warnings)
+3. **pip3** para gestión de paquetes Python
+4. **Mininet** para emulación de redes
+5. **Open vSwitch** para switches virtuales
+6. **git** para clonar dependencias
+
+
+## Comandos para crear el Virtual Environment apropiadamente
+
+### 1. Hacer ejecutables los scripts:
+```bash
+chmod +x setup_environment.sh
+chmod +x setup_sudoers.sh
+chmod +x src/scripts/run_all.sh
+chmod +x src/scripts/run_pox.sh
+chmod +x src/scripts/run_mininet.sh
+```
+
+
 ## Cómo ejecutar
 
-1. Primero, construir la imagen base:
+### 1. Configuración inicial del entorno
+
 ```bash
-sudo docker-compose build base
+# Ejecutar configuración (solo la primera vez)
+sudo ./setup_environment.sh
+
+# [RECOMENDADO] Configurar sudoers para evitar password prompts
+sudo ./setup_sudoers.sh
 ```
 
-2. Ejecutar el controlador POX:
+### 2. Ejecución del proyecto
+
+**IMPORTANTE**: Ejecutar cada script en una terminal separada:
+
+#### Terminal 1: Controlador POX
 ```bash
-sudo ./src/scripts/run_pox.sh
+./src/scripts/run_pox.sh
 ```
 
-3. En una nueva terminal, ejecutar Mininet:
+#### Terminal 2: Mininet (después de que el controlador esté corriendo)
 ```bash
-sudo ./src/scripts/run_mininet.sh
+./src/scripts/run_mininet.sh
 ```
 
-4. En caso de querer volver al paso 2, ejecutar antes:
-```bash
-sudo docker-compose down
-```
 
 
 

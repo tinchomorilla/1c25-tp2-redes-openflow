@@ -13,6 +13,7 @@ from mininet.term import makeTerm
 from src.utils.logger import setup_logger
 from src.topologies.rule_tester import RuleTester
 from src.topologies.linear_topology import LinearTopology
+from src.utils.constants import DEFAULT_SWITCHES, DEFAULT_RULE
 
 logger = setup_logger(__name__)
 
@@ -22,13 +23,21 @@ def parse_arguments():
     parser = argparse.ArgumentParser(
         description="Topología lineal con controlador remoto"
     )
-    parser.add_argument("n", type=int, help="Cantidad de switches")
+    parser.add_argument(
+        "n",
+        type=int,
+        nargs="?",
+        default=DEFAULT_SWITCHES,
+        help="Cantidad de switches (default: %d)" % DEFAULT_SWITCHES,
+    )
     parser.add_argument(
         "--rule",
         "-r",
         type=str,
+        default=DEFAULT_RULE,
         choices=["R1", "R2", "R3"],
-        help="Regla a probar (R1: HTTP, R2: UDP, R3: h2-h3)",
+        help="Regla a probar (R1: HTTP, R2: UDP, R3: h2-h3, default: %s)"
+        % DEFAULT_RULE,
     )
     return parser.parse_args()
 
@@ -93,6 +102,8 @@ def main():
         # Create and start network
         net = create_network(args.n)
         log_network_info()
+
+        time.sleep(12)
 
         # Run rule test if specified
         run_rule_test(net, args.rule)
