@@ -4,7 +4,7 @@
 from pox.core import core
 import json
 
-from pox.switch_controller import Controller
+from pox.custom.switch_controller import Controller
 
 log = core.getLogger()
 

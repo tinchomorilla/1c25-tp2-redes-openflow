@@ -50,6 +50,10 @@ mkdir -p pox/pox/custom
 cp src/controller/*.py pox/pox/custom/
 cp src/controller/rules.json pox/pox/custom/
 
+# Create __init__.py file in custom directory to make it a Python module
+echo "Creating __init__.py for custom module..."
+touch pox/pox/custom/__init__.py
+
 # Check if Mininet is installed
 if ! command -v mn &> /dev/null; then
     echo "=========================================="

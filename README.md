@@ -168,6 +168,27 @@ sudo service openvswitch-switch restart
 - **Sudo**: Mininet requiere permisos de administrador para crear interfaces de red
 - **Limpieza**: Usar `sudo mn -c` para limpiar interfaces de Mininet entre ejecuciones
 - **Entorno virtual**: Las dependencias Python se instalan en `venv/` y no afectan el sistema
+- **Actualización importante**: Si actualizas los archivos del controlador, re-ejecuta `./setup_environment.sh` para actualizar los archivos en POX
+
+## Resolución de Problemas
+
+### Error: "ModuleNotFoundError: No module named 'pox.switch_controller'"
+
+Este error indica que los archivos del controlador no están correctamente copiados a POX. Para solucionarlo:
+
+```bash
+# Re-ejecutar el script de configuración
+./setup_environment.sh
+```
+
+### Error: "No module named 'pox.custom.firewall'"
+
+Similar al anterior, ejecutar:
+
+```bash
+# Asegurar que todos los archivos estén actualizados
+./setup_environment.sh
+```
 
 
 

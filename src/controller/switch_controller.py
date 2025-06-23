@@ -5,7 +5,7 @@ from pox.core import core
 import pox.openflow.libopenflow_01 as of
 from pox.lib.packet import ethernet
 
-from pox.firewall import Firewall
+from pox.custom.firewall import Firewall
 
 log = core.getLogger()
 
