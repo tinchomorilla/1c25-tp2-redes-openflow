@@ -103,6 +103,8 @@ def main():
         net = create_network(args.n)
         log_network_info()
 
+        time.sleep(12)
+
         # Run rule test if specified
         run_rule_test(net, args.rule)
 
