@@ -16,6 +16,19 @@ if [ ! -d "pox" ]; then
     exit 1
 fi
 
+# CHECK RULES: Verify rules.json exists and show current configuration
+echo "Checking current rules configuration..."
+if [ -f "src/controller/rules.json" ]; then
+    echo "✅ Using rules.json directly from src/controller/"
+    echo "📋 Current rules configuration:"
+    cat src/controller/rules.json | grep -E '"rule"|"dst_port"|"src_ip"|"dst_ip"' | head -10
+    echo ""
+    RULES_PATH="$(pwd)/src/controller/rules.json"
+else
+    echo "❌ Error: src/controller/rules.json not found"
+    exit 1
+fi
+
 # CLEANUP: Kill any existing POX processes
 echo "Cleaning up existing POX processes..."
 pkill -f "pox.py" 2>/dev/null || true
@@ -39,6 +52,7 @@ else
 fi
 
 echo "Using Python: $PYTHON_CMD"
+echo "Rules file: $RULES_PATH"
 
 # Activate virtual environment
 source venv/bin/activate
@@ -48,7 +62,8 @@ gnome-terminal -- bash -c "
     cd $(pwd)
     source venv/bin/activate
     echo 'Starting POX Controller with $PYTHON_CMD...'
-    $PYTHON_CMD pox/pox.py log.level --DEBUG custom.main --rules_path=pox/pox/custom/rules.json
+    echo 'Using rules from: $RULES_PATH'
+    $PYTHON_CMD pox/pox.py log.level --DEBUG custom.main --rules_path=$RULES_PATH
     exec bash
 "
 
