@@ -36,4 +36,7 @@ Thumbs.db
 mininet.log
 
 # Network files
-*.pcap 
+*.pcap
+
+# Testing scripts (optional - keep if you want to version it)
+# test_environment.sh 
