@@ -26,6 +26,8 @@ $USER ALL=(ALL) NOPASSWD: /usr/bin/pkill
 $USER ALL=(ALL) NOPASSWD: /usr/bin/fuser
 $USER ALL=(ALL) NOPASSWD: /sbin/ip
 $USER ALL=(ALL) NOPASSWD: /bin/kill
+$USER ALL=(ALL) NOPASSWD: /usr/bin/xterm
+$USER ALL=(ALL) NOPASSWD: /usr/bin/x-terminal-emulator
 EOF
 
 # Set proper permissions
@@ -36,6 +38,7 @@ if sudo visudo -c -f "$SUDOERS_FILE"; then
     echo "✅ Sudoers configuration created successfully!"
     echo "✅ File: $SUDOERS_FILE"
     echo "✅ You should no longer be prompted for passwords when running Mininet"
+    echo "✅ xterm terminals will now open without password prompts"
 else
     echo "❌ Error in sudoers configuration. Removing file..."
     sudo rm -f "$SUDOERS_FILE"
@@ -45,4 +48,5 @@ fi
 echo "=========================================="
 echo "Configuration complete!"
 echo "You can now run Mininet scripts without password prompts"
+echo "xterm terminals will open automatically for hosts"
 echo "==========================================" 

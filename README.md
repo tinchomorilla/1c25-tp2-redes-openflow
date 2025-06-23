@@ -105,32 +105,34 @@ chmod +x setup_sudoers.sh
 # Ejecutar configuración (solo la primera vez)
 ./setup_environment.sh
 
-# [OPCIONAL] Configurar sudoers para evitar password prompts
+# [RECOMENDADO] Configurar sudoers para evitar password prompts
 ./setup_sudoers.sh
 ```
 
 ### 2. Ejecución del proyecto
 
-#### Opción A: Ejecutar todo automáticamente (RECOMENDADO)
-```bash
-# Ejecutar controlador y topología juntos CON CLEANUP AUTOMÁTICO
-chmod +x src/scripts/run_all.sh
-./src/scripts/run_all.sh
-```
+**IMPORTANTE**: Ejecutar cada script en una terminal separada:
 
-#### Opción B: Ejecutar por separado
-
-1. **Ejecutar el controlador POX**:
+#### Terminal 1: Controlador POX
 ```bash
 chmod +x src/scripts/run_pox.sh
 ./src/scripts/run_pox.sh
 ```
 
-2. **En una nueva terminal, ejecutar Mininet**:
+#### Terminal 2: Mininet (después de que el controlador esté corriendo)
 ```bash
 chmod +x src/scripts/run_mininet.sh
 ./src/scripts/run_mininet.sh
 ```
+
+El script de Mininet:
+- ✅ **Es súper simple**: Solo 8 líneas de código
+- ✅ **Ejecuta `main.py`**: Que maneja toda la lógica de la topología
+- ✅ **Abre terminales xterm automáticamente**: Para cada host cuando sea necesario
+- ✅ **Funciona sin password prompts**: Si configuraste sudoers
+
+#### ~~Opción A: Ejecutar todo automáticamente (DESCONTINUADO)~~
+~~El script `run_all.sh` fue descontinuado. Usar scripts individuales.~~
 
 ### 3. Comandos adicionales útiles
 
