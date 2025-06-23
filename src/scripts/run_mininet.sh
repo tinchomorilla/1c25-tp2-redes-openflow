@@ -12,4 +12,4 @@ source venv/bin/activate
 export PYTHONPATH="$(pwd):$PYTHONPATH"
 
 # Run the main topology script
-sudo -E env PATH=$PATH PYTHONPATH=$PYTHONPATH python3 src/topologies/main.py 3 
+sudo -E env PATH=$PATH PYTHONPATH=$PYTHONPATH python3 src/topologies/main.py 
