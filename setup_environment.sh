@@ -16,6 +16,20 @@ if ! command -v pip3 &> /dev/null; then
     exit 1
 fi
 
+# Check if Python 2.7 is installed (needed for POX)
+if ! command -v python2.7 &> /dev/null && ! command -v python2 &> /dev/null; then
+    echo "=========================================="
+    echo "WARNING: Python 2.7 is not installed."
+    echo "POX works best with Python 2.7. To install:"
+    echo "  sudo apt-get install python2.7 python2.7-dev"
+    echo "  Or:"
+    echo "  sudo apt-get install python2 python2-dev"
+    echo "Continuing with Python 3 (may show warnings)"
+    echo "=========================================="
+else
+    echo "Python 2.7 found - excellent for POX compatibility!"
+fi
+
 # Create virtual environment
 if [ ! -d "venv" ]; then
     echo "Creating virtual environment..."
@@ -41,7 +55,8 @@ if [ ! -d "pox" ]; then
     echo "Cloning POX controller..."
     git clone https://github.com/noxrepo/pox.git pox
 else
-    echo "POX already exists."
+    echo "POX already exists. Updating..."
+    cd pox && git pull && cd ..
 fi
 
 # Copy controller files to POX directory
@@ -79,6 +94,20 @@ if ! command -v ovs-vsctl &> /dev/null; then
 else
     echo "Open vSwitch is already installed."
 fi
+
+# Setup sudoers for Mininet (optional, reduces password prompts)
+echo "=========================================="
+echo "OPTIONAL: To avoid password prompts for Mininet commands,"
+echo "you can add these lines to /etc/sudoers (run 'sudo visudo'):"
+echo ""
+echo "# Allow mininet commands without password"
+echo "$USER ALL=(ALL) NOPASSWD: /usr/bin/mn"
+echo "$USER ALL=(ALL) NOPASSWD: /usr/bin/ovs-*"
+echo "$USER ALL=(ALL) NOPASSWD: /usr/sbin/service openvswitch-switch *"
+echo "$USER ALL=(ALL) NOPASSWD: /usr/bin/pkill"
+echo "$USER ALL=(ALL) NOPASSWD: /usr/bin/fuser"
+echo "$USER ALL=(ALL) NOPASSWD: /sbin/ip"
+echo "=========================================="
 
 echo "=========================================="
 echo "Setup complete!"
