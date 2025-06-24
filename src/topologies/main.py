@@ -41,8 +41,8 @@ def parse_arguments():
         "-r",
         type=str,
         default=DEFAULT_RULE,
-        choices=["R1", "R2", "R3"],
-        help="Regla a probar (R1: HTTP, R2: UDP, R3: h2-h3, default: %s)"
+        choices=["R1", "R2", "R3", "R4"],
+        help="Regla a probar (R1: HTTP, R2: UDP, R3: h2-h3, R4: conectividad, default: %s)"
         % DEFAULT_RULE,
     )
     return parser.parse_args()
@@ -82,6 +82,7 @@ def run_rule_test(net, rule):
         "R1": rule_tester.test_first_rule,
         "R2": rule_tester.test_second_rule,
         "R3": rule_tester.test_third_rule,
+        "R4": rule_tester.test_connectivity,
     }
 
     test_method = test_methods.get(rule)
@@ -109,7 +110,7 @@ def main():
         net = create_network(args.n)
         log_network_info()
 
-        time.sleep(12)
+        time.sleep(3)
 
         # Run rule test if specified
         run_rule_test(net, args.rule)
