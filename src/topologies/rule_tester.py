@@ -20,8 +20,8 @@ class RuleTester:
         time.sleep(5)
         # Start iperf client on h2
         makeTerm(
-            self.net.get("h1"), cmd="bash -c 'iperf -c 10.0.0.3 -u -p 80; exec bash'")
-
+            self.net.get("h1"), cmd="bash -c 'iperf -c 10.0.0.3 -u -p 80; exec bash'"
+        )
 
     def test_second_rule(self):
         """Test UDP blocking from h1 to port 5001 (R2)"""
@@ -46,3 +46,9 @@ class RuleTester:
         makeTerm(
             self.net.get("h2"), cmd="bash -c 'iperf -c 10.0.0.3 -u -p 5001; exec bash'"
         )
+
+    def test_connectivity(self):
+        """Test basic connectivity between all hosts using pingAll."""
+        logger.info("Testing connectivity between all hosts with pingAll...")
+        result = self.net.pingAll()
+        logger.info("pingAll result: %s", result)
