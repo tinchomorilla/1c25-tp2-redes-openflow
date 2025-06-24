@@ -8,6 +8,7 @@ from mininet.cli import CLI
 import argparse
 import os
 import time
+import sys
 from mininet.term import makeTerm
 
 from src.utils.logger import setup_logger
@@ -23,6 +24,11 @@ def parse_arguments():
     parser = argparse.ArgumentParser(
         description="Topología lineal con controlador remoto"
     )
+
+    if DEFAULT_SWITCHES <= 0:
+        logger.error("No se permiten switches menores o iguales a 0")
+        sys.exit(1)
+
     parser.add_argument(
         "n",
         type=int,
