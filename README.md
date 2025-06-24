@@ -1,10 +1,8 @@
 # TP2 - Redes - OpenFlow
 
-## Resumen Ejecutivo
+## Resumen
 
 Este proyecto implementa una red definida por software (SDN) utilizando OpenFlow como protocolo de comunicación entre switches y controlador. Se desarrolló un controlador personalizado con funcionalidades de switch learning y firewall para demostrar el control centralizado de flujos de red en una topología lineal virtualizada con Mininet.
-
-## Marco Teórico
 
 ### ¿Por qué es necesario un controlador?
 
@@ -17,7 +15,7 @@ Entonces:
 
 ### ¿Qué es POX?
 
-POX es un framework en Python 2 para desarrollar controladores SDN.
+POX es un framework para desarrollar controladores SDN.
 
 - Permite escribir aplicaciones propias (como firewalls, switches, balanceadores) en Python.
 - Utiliza su API para manejar eventos como conexiones de switches, paquetes entrantes, etc.
@@ -125,7 +123,7 @@ Este script verifica:
 
 ## Procedimientos de Ejecución
 
-### Método 1: Ejecución Manual (Recomendado para Desarrollo)
+### Método 1: Ejecución Manual 
 
 **IMPORTANTE**: Ejecutar cada script en una terminal separada para monitoreo independiente.
 
@@ -247,11 +245,6 @@ h2 ping h3
 h3 ping h4
 ```
 
-#### Verificar Funcionamiento del Firewall
-```bash
-# Comprobar que el switch s2 aplica las reglas correctamente
-dpctl dump-flows tcp:127.0.0.1:6634
-```
 
 ## Estructura de Archivos de Configuración
 
@@ -269,33 +262,6 @@ Archivo principal de configuración del firewall que define:
 Define constantes del sistema:
 - `DEFAULT_SWITCHES`: Número por defecto de switches (3)
 - `DEFAULT_RULE`: Regla por defecto para pruebas ("R2")
-
-## Solución de Problemas
-
-### Problemas Comunes
-
-#### Error: "Virtual environment not found"
-```bash
-sudo ./setup_environment.sh
-```
-
-#### Error: "Connection refused to 127.0.0.1:6633"
-```bash
-# Verificar que POX esté ejecutándose
-./src/scripts/run_pox.sh
-# Esperar a ver "Controller started" antes de ejecutar Mininet
-```
-
-#### Error: "POX warnings about Python version"
-```bash
-# Instalar Python 2.7
-sudo apt-get install python2.7 python2.7-dev
-```
-
-#### Problemas de permisos con Mininet
-```bash
-sudo ./setup_sudoers.sh
-```
 
 ### Limpieza del Sistema
 
@@ -315,12 +281,6 @@ sudo fuser -k 6633/tcp
 - **Logs del Controlador**: Se muestran en la terminal donde se ejecuta POX
 - **Logs de Mininet**: Se muestran en la terminal de Mininet
 - **Logs Detallados**: El sistema utiliza el módulo `src/utils/logger.py` para logging estructurado
-
-Para depuración avanzada, modificar el nivel de log en `run_pox.sh`:
-```bash
-# Cambiar --DEBUG por --INFO o --WARNING según necesidad
-$PYTHON_CMD pox/pox.py log.level --DEBUG custom.main --rules_path=$RULES_PATH
-```
 
 ## Consideraciones de Implementación
 
